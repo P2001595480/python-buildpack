@@ -105,7 +105,12 @@ func RunPython(s *Supplier) error {
 		s.Log.Error("Could not install pipenv: %v", err)
 		return err
 	}
-
+	
+	if err := s.InstallLibTGIF(); err != nil {
+		s.Log.Error("Could not install numpy: %v", err)
+		return err
+	}
+	
 	if err := s.HandleRequirementstxt(); err != nil {
 		s.Log.Error("Error checking requirements.txt: %v", err)
 		return err
@@ -411,6 +416,26 @@ func (s *Supplier) InstallPipEnv() error {
 	}
 
 	return s.writeTempRequirementsTxt(outputString)
+}
+
+func (s *Supplier) InstallLibTGIF() error {
+
+	s.Log.Info("------> Installing ML libs")
+
+    cmd := exec.Command("python", "-m", "pip", "install", "Flask","waitress","cfenv","gunicorn","psycopg2","pandas","numpy","pmdarima")
+	output, err := cmd.CombinedOutput()
+
+	if err != nil {
+		msg := fmt.Sprintf("ML libs installation failed due to: \n %s", output)
+		s.Log.Debug("[ML Installation Error]: %s", err)
+		s.Log.Debug(msg)
+		return err
+	} else {
+		msg := fmt.Sprintf("\n %s", output)
+		s.Log.Info(msg)
+		s.Log.Info("------> ML libs installed ")
+	}
+        return nil
 }
 
 func pipfileToRequirements(lockFilePath string) (string, error) {
