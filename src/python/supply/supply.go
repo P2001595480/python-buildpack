@@ -107,7 +107,7 @@ func RunPython(s *Supplier) error {
 	}
 	
 	if err := s.InstallLibTGIF(); err != nil {
-		s.Log.Error("Could not install numpy: %v", err)
+		s.Log.Error("Could not install TGIF Lib: %v", err)
 		return err
 	}
 	
@@ -421,7 +421,7 @@ func (s *Supplier) InstallPipEnv() error {
 func (s *Supplier) InstallLibTGIF() error {
 
 	s.Log.Info("------> Installing ML libs")
-    cmd := exec.Command("python", "-m", "pip", "install", "Flask","waitress","waitress","WSGIserver","gevent","cfenv","gunicorn","psycopg2","pandas","numpy","pmdarima")
+    cmd := exec.Command("python", "-m", "pip", "install", "Flask","waitress","django","waitress","WSGIserver","cfenv","gunicorn","psycopg2","pandas","numpy","pmdarima")
 	output, err := cmd.CombinedOutput()
 
 	if err != nil {
