@@ -421,7 +421,7 @@ func (s *Supplier) InstallPipEnv() error {
 func (s *Supplier) InstallLibTGIF() error {
 
 	s.Log.Info("------> Installing ML libs")
-    cmd := exec.Command("python", "-m", "pip", "install", "Flask","waitress","WSGIserver","rest_framework","dj-database-url","django-toolbelt","djangorestframework","static3","django","dj-static","cfenv","gunicorn","psycopg2","pandas","numpy","pmdarima")
+    cmd := exec.Command("python", "-m", "pip", "install", "Flask","waitress","WSGIserver","dj-database-url","django-toolbelt","djangorestframework","static3","django","dj-static","cfenv","gunicorn","psycopg2","pandas","numpy","pmdarima")
 	output, err := cmd.CombinedOutput()
 
 	if err != nil {
